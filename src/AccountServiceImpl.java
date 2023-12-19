@@ -88,11 +88,11 @@ public class AccountServiceImpl implements AccountService {
         account.setPassword(password);
 
         //Nhap balance amount
-        System.out.print("Enter balanceAmount: ");
+        System.out.print(Constant.enterBalance);
         double balanceAmount;
 
         while(!scanner.hasNextDouble()) {
-            System.out.println("BalanceAmount is a number: ");
+            System.out.println(Constant.getEnterBalance);
             scanner.next();
         } balanceAmount = scanner.nextDouble();
         account.setBalanceAmount(balanceAmount);
@@ -150,11 +150,11 @@ public class AccountServiceImpl implements AccountService {
                 }
                 accountUsers.get(i).setPassword(password);
                 //Nhap balance amount
-                System.out.print("Enter balanceAmount: ");
+                System.out.print(Constant.enterBalance);
                 double balanceAmount;
 
                 while(!scanner.hasNextDouble()) {
-                    System.out.println("BalanceAmount is a number: ");
+                    System.out.println(Constant.getEnterBalance);
                     scanner.next();
                 } balanceAmount = scanner.nextDouble();
                 accountUsers.get(i).setBalanceAmount(balanceAmount);

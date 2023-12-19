@@ -5,7 +5,7 @@ public class Constant {
     public static final String enterUserId = "Enter UserId: ";
     public static final String enterPassword = "Enter Password: ";
     public static final String enterPasswordAgain = "Enter Password Again: ";
-    public static final String enterPass = "Enter Account Number: ";
+    public static final String getEnterBalance = "BalanceAmount is a number: ";
     public static final String enterBalance = "Enter balanceAmount: ";
     public static final String choseId = "Chose your id: ";
     public static final String noList = "No Id in list" ;
