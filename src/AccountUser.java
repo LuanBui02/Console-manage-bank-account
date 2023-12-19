@@ -1,18 +1,19 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class AccountUser {
+public class AccountUser extends User {
     private int id;
     private String accountNumber;
     private  String userId;
-    private int password;
+    private String password;
     private double balanceAmount;
     private Type type;
     List<AccountUser> accountUsers = new ArrayList<>();
     public AccountUser() {
 
     }
-    public AccountUser(int id, String accountNumber,String userId,int password, double balanceAmount) {
+    public AccountUser(int id, String accountNumber,String userId,String password, double balanceAmount) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.userId = userId;
@@ -42,12 +43,11 @@ public class AccountUser {
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -59,17 +59,9 @@ public class AccountUser {
         this.userId = userId;
     }
 
-    public void addAccount(AccountUser account) {
-        accountUsers.add(account);
-    }
-    public boolean removeAccount(AccountUser account) {
-        accountUsers.remove(account);
-        return true;
-    }
-
     @Override
     public String toString() {
-        return String.format("Id: %s, accountNumber: %s, userId: %s, password: %d, balanceAmount: %f",id, accountNumber, userId, password,balanceAmount);
+        return String.format("Id: %s, accountNumber: %s, userId: %s, password: %s, balanceAmount: %f",id, accountNumber, userId, password,balanceAmount);
     }
 
 }

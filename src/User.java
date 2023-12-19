@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class User extends AccountUser {
+public class User  {
     private int id;
     private String name;
     private String birthday;
@@ -59,6 +59,7 @@ public class User extends AccountUser {
     public void setAddress(String address) {
         this.address = address;
     }
+
 
     @Override
     public String toString() {
