@@ -172,13 +172,28 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void removeAccount() {
         System.out.print(Constant.choseId);
-        int inputRemove = scanner.nextInt();
-            for (int i = 0; i < accountUsers.size(); i++) {
-                if (inputRemove == accountUsers.get(i).getId()) {
-                    accountUsers.remove(accountUsers.get(i));
-                } else {
-                    System.out.println(Constant.noList);
-            }
+
+        boolean checkRemove = true;
+
+            while(checkRemove) {
+                int inputRemove = scanner.nextInt();
+                boolean checkTrue = true;
+
+                for (int i = 0; i < accountUsers.size(); i++) {
+
+                    if (inputRemove == accountUsers.get(i).getId()) {
+                        accountUsers.remove(accountUsers.get(i));
+                        checkTrue = false;
+                        break;
+
+                    } else {
+                        System.out.println(Constant.noList);
+
+                    }
+                }  if (!checkTrue) {
+                    checkRemove = false;
+                }
+
         }
 
     }
@@ -199,7 +214,7 @@ public class AccountServiceImpl implements AccountService {
             if (input1 == accountUsers.get(i).getId()) {
                 System.out.println(Constant.enterDeposit);
                 double depositMoney = scanner.nextDouble();
-                double deposit = depositMoney + accountUsers.getFirst().getBalanceAmount();
+                double deposit = depositMoney + accountUsers.get(i).getBalanceAmount();
                 System.out.println(Constant.depositPrint + deposit);
                 accountUsers.get(i).setBalanceAmount(deposit);
             } else {
@@ -221,7 +236,7 @@ public class AccountServiceImpl implements AccountService {
                 if(withDrawMoney < 0) {
                     System.out.println(Constant.conditionWithDraw);
                 } else {
-                    double withDraw = accountUsers.getFirst().getBalanceAmount() - withDrawMoney;
+                    double withDraw = accountUsers.get(i).getBalanceAmount() - withDrawMoney;
                     System.out.println(Constant.withDrawPrint + withDraw);
                     accountUsers.get(i).setBalanceAmount(withDraw);
                 }
