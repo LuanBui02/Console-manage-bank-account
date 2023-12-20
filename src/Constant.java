@@ -12,12 +12,14 @@ public class Constant {
     public static final String enterDeposit = "Enter your deposit: " ;
     public static final String depositPrint = "The deposit money is: " ;
     public static final String enterWithDraw = "Enter your withdraw: " ;
-    public static final String conditionWithDraw = "withDraw have to more than 0 " ;
+//    public static final String enterWithDraw1 = "Enter your withdraw again: " ;
+    public static final String conditionWithDraw = "withDraw have to less than balanceAmount " ;
     public static final String withDrawPrint = "The withDraw money is: " ;
     public static final String findName = "Enter the name to find: " ;
     public static final String findBirthday = "Enter the birthday to find: " ;
     public static final String noName = "There is no name in list" ;
     public static final String noBirthday = "There is no birthday in list" ;
+    public static final String emptyList = "There is no element in list";
 
 
 

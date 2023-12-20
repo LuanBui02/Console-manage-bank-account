@@ -7,10 +7,7 @@ public class AccountServiceImpl implements AccountService {
     User user1 = new User(1, "Luan", "5-5-2023", "HCM", 10);
 
     User user2 = new User(2, "David", "5-10-2003", "HCM", 11);
-    public void addUsers() {
-        users.add(user1);
-        users.add(user2);
-    }
+
     List<AccountUser> accountUsers = new ArrayList<>();
 
 
@@ -68,20 +65,20 @@ public class AccountServiceImpl implements AccountService {
         while (checkPassword) {
             password = scanner.nextLine();
             boolean checkCh = false;
-                if(password.trim().isEmpty()) {
+            if (password.trim().isEmpty()) {
+                System.out.println(Constant.enterPasswordAgain);
+                checkCh = true;
+
+            }
+            for (char ch : password.toCharArray()) {
+                if (ch == ' ') {
                     System.out.println(Constant.enterPasswordAgain);
                     checkCh = true;
-
                 }
-                for(char ch: password.toCharArray()) {
-                    if(ch == ' ') {
-                        System.out.println(Constant.enterPasswordAgain);
-                        checkCh = true;
-                    }
-                }
-                if (!checkCh) {
-                    checkPassword = false;
-                }
+            }
+            if (!checkCh) {
+                checkPassword = false;
+            }
 
 
         }
@@ -91,10 +88,11 @@ public class AccountServiceImpl implements AccountService {
         System.out.print(Constant.enterBalance);
         double balanceAmount;
 
-        while(!scanner.hasNextDouble()) {
+        while (!scanner.hasNextDouble()) {
             System.out.println(Constant.getEnterBalance);
             scanner.next();
-        } balanceAmount = scanner.nextDouble();
+        }
+        balanceAmount = scanner.nextDouble();
         account.setBalanceAmount(balanceAmount);
 
         accountUsers.add(account);
@@ -134,13 +132,13 @@ public class AccountServiceImpl implements AccountService {
                     while (checkPassword) {
                         password = scanner.nextLine();
                         boolean checkCh = false;
-                        if(password.trim().isEmpty()) {
+                        if (password.trim().isEmpty()) {
                             System.out.println(Constant.enterPasswordAgain);
                             checkCh = true;
 
                         }
-                        for(char ch: password.toCharArray()) {
-                            if(ch == ' ') {
+                        for (char ch : password.toCharArray()) {
+                            if (ch == ' ') {
                                 System.out.println(Constant.enterPasswordAgain);
                                 checkCh = true;
                             }
@@ -156,10 +154,11 @@ public class AccountServiceImpl implements AccountService {
                     System.out.print(Constant.enterBalance);
                     double balanceAmount;
 
-                    while(!scanner.hasNextDouble()) {
+                    while (!scanner.hasNextDouble()) {
                         System.out.println(Constant.getEnterBalance);
                         scanner.next();
-                    } balanceAmount = scanner.nextDouble();
+                    }
+                    balanceAmount = scanner.nextDouble();
                     accountUsers.get(i).setBalanceAmount(balanceAmount);
                     users.add(accountUsers.get(i));
                     System.out.println(users);
@@ -171,12 +170,11 @@ public class AccountServiceImpl implements AccountService {
                 System.out.println(Constant.noList);
             }
         }
-
     }
 
     @Override
     public void removeAccount() {
-       if (accountUsers.isEmpty()) {
+        if (accountUsers.isEmpty()) {
             System.out.println(Constant.emptyList);
         } else {
             System.out.print(Constant.choseId);
@@ -192,11 +190,12 @@ public class AccountServiceImpl implements AccountService {
                     break;
                 }
 
-            } if(!checkLoop) {
+            }
+            if (!checkLoop) {
                 System.out.println(Constant.noList);
             }
         }
-        }
+    }
 
 
     @Override
@@ -208,34 +207,36 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void depositMoney() {
-             if (accountUsers.isEmpty()) {
-                System.out.println(Constant.emptyList);
+        if (accountUsers.isEmpty()) {
+            System.out.println(Constant.emptyList);
 
-            } else {
-                System.out.print(Constant.choseId);
-                int input1 = scanner.nextInt();
+        } else {
+            System.out.print(Constant.choseId);
+            int input1 = scanner.nextInt();
 
-                boolean checkLoop = false;
-                for (int i = 0; i < accountUsers.size(); i++) {
+            boolean checkLoop = false;
+            for (int i = 0; i < accountUsers.size(); i++) {
 
-                    if (input1 == accountUsers.get(i).getId()) {
-                        System.out.println(Constant.enterDeposit);
-                        double depositMoney = scanner.nextDouble();
-                        double deposit = depositMoney + accountUsers.get(i).getBalanceAmount();
-                        System.out.println(Constant.depositPrint + deposit);
-                        accountUsers.get(i).setBalanceAmount(deposit);
-                        checkLoop = true;
+                if (input1 == accountUsers.get(i).getId()) {
+                    System.out.println(Constant.enterDeposit);
+                    double depositMoney = scanner.nextDouble();
+                    double deposit = depositMoney + accountUsers.get(i).getBalanceAmount();
+                    System.out.println(Constant.depositPrint + deposit);
+                    accountUsers.get(i).setBalanceAmount(deposit);
+                    checkLoop = true;
 
-                        break;
-                    }
-                } if(!checkLoop) {
-                    System.out.println(Constant.noList);
-
+                    break;
                 }
             }
+            if (!checkLoop) {
+                System.out.println(Constant.noList);
 
-
+            }
         }
+
+
+    }
+
 
     @Override
     public void withdrawMoney() {
@@ -246,84 +247,95 @@ public class AccountServiceImpl implements AccountService {
             int input1 = scanner.nextInt();
             boolean checkWithDraw = true;
             while (checkWithDraw) {
-                boolean checkLoop = true;
-                boolean checkOut = true;
+                boolean checkLoop = false;
+                boolean checkOut = false;
+
                 for (int i = 0; i < accountUsers.size(); i++) {
-                    if (input1 == accountUsers.get(i).getId()) {
-                        boolean checkWithDraw1 = true;
-                        while (checkWithDraw1) {
-                            System.out.println(Constant.enterWithDraw);
-                            double withDrawMoney = scanner.nextDouble();
-                            boolean checkInLoop = false;
-                            for (int j = 0; j < accountUsers.size(); j++) {
-                                if(withDrawMoney <= accountUsers.get(j).getBalanceAmount()) {
-                                    double withDraw = accountUsers.get(j).getBalanceAmount() - withDrawMoney;
-                                    System.out.println(Constant.withDrawPrint + withDraw);
-                                    accountUsers.get(j).setBalanceAmount(withDraw);
-                                    checkLoop = false;
-                                    checkInLoop = false;
 
-                                    break;
-                                } else {
-                                    System.out.println(Constant.conditionWithDraw);
-                                    checkInLoop = true;
-                                    checkLoop = false;
+                        if (input1 == accountUsers.get(i).getId()) {
+
+                                System.out.println(Constant.enterWithDraw);
+                                double withDrawMoney = scanner.nextDouble();
+                                    if(withDrawMoney <= accountUsers.get(i).getBalanceAmount()) {
+                                        double withDraw = accountUsers.get(i).getBalanceAmount() - withDrawMoney;
+                                        System.out.println(Constant.withDrawPrint + withDraw);
+                                        accountUsers.get(i).setBalanceAmount(withDraw);
+                                        checkLoop = true;
+                                        checkOut = false;
+
+                                    } else {
+                                        System.out.println(Constant.conditionWithDraw);
+                                        checkLoop = true;
+                                        checkOut = true;
+
                                 }
-
-                            } if (!checkInLoop) {
-                                checkWithDraw1 = false;
-                            }
-                        }
                     }
-                }
-                if(checkLoop) {
+
+                    }
+                if(!checkLoop) {
                     System.out.println(Constant.noList);
-                } if (!checkOut) {
+                    break;
+                }
+                if (!checkOut) {
                     checkWithDraw = false;
-                }  if(!checkLoop) {
+                    }   if(!checkLoop) {
                     checkWithDraw = false;
                 }
             }
         }
-        }
+    }
 
 
     @Override
     public void findAccountByName() {
         users.add(user1);
         users.add(user2);
-        System.out.print(Constant.findName);
-        String findName = scanner.next();
+        if (accountUsers.isEmpty()) {
+            System.out.println(Constant.emptyList);
+        } else {
+            System.out.print(Constant.findName);
+            String findName = scanner.next();
+            boolean checkName = false;
+            for (int i = 0; i < users.size(); i++) {
 
-        for (int i = 0; i < users.size(); i++) {
-            String upperCase = findName.toUpperCase();
-            String upperCase1 = users.get(i).getName().toUpperCase();
-            if (upperCase1.equals(upperCase)) {
-                System.out.println(accountUsers.get(i));
-                break;
-            } else {
-                 System.out.println(Constant.noName);
+                String upperCase = findName.toUpperCase();
+                String upperCase1 = users.get(i).getName().toUpperCase();
+                if (upperCase1.equals(upperCase)) {
+                    System.out.println(accountUsers.get(i));
+                    checkName = true;
+                    break;
                 }
             }
-
+            if (!checkName) {
+                System.out.println(Constant.noName);
+            }
         }
+    }
 
     @Override
     public void findAccountByBirthday() {
         users.add(user1);
         users.add(user2);
-        System.out.println(Constant.findBirthday);
-        String findBirthday = scanner.next();
+        if (accountUsers.isEmpty()) {
+            System.out.println(Constant.emptyList);
+        } else {
+            System.out.println(Constant.findBirthday);
+            String findBirthday = scanner.next();
+            boolean checkBirthday = false;
+            for (int i = 0; i < users.size(); i++) {
+                if (findBirthday.equals(users.get(i).getBirthday())) {
+                    System.out.println(accountUsers.get(i));
+                    checkBirthday = true;
+                    break;
+                }
 
-        for (int i = 0; i < users.size(); i++) {
-            if (findBirthday.equals(users.get(i).getBirthday())) {
-                System.out.println(accountUsers.get(i));
-                break;
-            } else {
+            }
+            if (!checkBirthday) {
                 System.out.println(Constant.noBirthday);
             }
-
         }
+
     }
 }
+
 

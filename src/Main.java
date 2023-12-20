@@ -12,7 +12,6 @@ public class Main {
 
         System.out.println("User1: " + user1);
         System.out.println("User2: " + user2);
-
         List<Type> typeList = new ArrayList<>();
         Type type1 = new Type();
         type1.setId(1);
@@ -34,6 +33,7 @@ public class Main {
             System.out.println("Press 6 is Withdraw money");
             System.out.println("Press 7 is find account by name");
             System.out.println("Press 8 is find account by birthday");
+
 
             Scanner scanner = new Scanner(System.in);
             System.out.print("Chose your number: ");
@@ -64,6 +64,7 @@ public class Main {
                 case 8:
                     service.findAccountByBirthday();
                     break;
+
                 default:
                     checkWhile = false;
                     break;

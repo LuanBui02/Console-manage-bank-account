@@ -3,7 +3,6 @@ import java.util.List;
 
 public interface AccountService {
     void addAccount();
-
     void updateAccount();
     void removeAccount();
     void showAccount();
@@ -11,5 +10,5 @@ public interface AccountService {
     void withdrawMoney();
     void findAccountByName();
     void findAccountByBirthday();
-
+//    void addUser();
 }
