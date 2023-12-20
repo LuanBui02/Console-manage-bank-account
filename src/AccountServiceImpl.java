@@ -200,65 +200,73 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void depositMoney() {
-        System.out.print(Constant.choseId);
+             if (accountUsers.isEmpty()) {
+                System.out.println(Constant.emptyList);
 
+            } else {
+                System.out.print(Constant.choseId);
+                int input1 = scanner.nextInt();
 
-            int input1 = scanner.nextInt();
+                boolean checkLoop = false;
+                for (int i = 0; i < accountUsers.size(); i++) {
 
-            boolean checkLoop = false;
-            for (int i = 0; i < accountUsers.size(); i++) {
+                    if (input1 == accountUsers.get(i).getId()) {
+                        System.out.println(Constant.enterDeposit);
+                        double depositMoney = scanner.nextDouble();
+                        double deposit = depositMoney + accountUsers.get(i).getBalanceAmount();
+                        System.out.println(Constant.depositPrint + deposit);
+                        accountUsers.get(i).setBalanceAmount(deposit);
+                        checkLoop = true;
 
-                if (input1 == accountUsers.get(i).getId()) {
-                    System.out.println(Constant.enterDeposit);
-                    double depositMoney = scanner.nextDouble();
-                    double deposit = depositMoney + accountUsers.get(i).getBalanceAmount();
-                    System.out.println(Constant.depositPrint + deposit);
-                    accountUsers.get(i).setBalanceAmount(deposit);
-                    checkLoop = true;
+                        break;
+                    }
+                } if(!checkLoop) {
+                    System.out.println(Constant.noList);
 
-                    break;
                 }
-            } if(!checkLoop) {
-                System.out.println(Constant.noList);
-
             }
+
 
         }
 
     @Override
         public void withdrawMoney() {
-        System.out.print(Constant.choseId);
-        int input1 = scanner.nextInt();
-        boolean checkWithDraw = true;
-        while (checkWithDraw) {
+        if(accountUsers.isEmpty()) {
+            System.out.println(Constant.emptyList);
+        } else {
+            System.out.print(Constant.choseId);
+            int input1 = scanner.nextInt();
+            boolean checkWithDraw = true;
+            while (checkWithDraw) {
 
-            boolean checkOut = true;
-            boolean checkLoop = false;
-            for (int i = 0; i < accountUsers.size(); i++) {
+                boolean checkOut = true;
+                boolean checkLoop = false;
+                for (int i = 0; i < accountUsers.size(); i++) {
 
-                if (input1 == accountUsers.get(i).getId()) {
-                    System.out.println(Constant.enterWithDraw);
-                    double withDrawMoney = scanner.nextDouble();
-                    if(withDrawMoney <= accountUsers.get(i).getBalanceAmount()) {
-                        double withDraw = accountUsers.get(i).getBalanceAmount() - withDrawMoney;
-                        System.out.println(Constant.withDrawPrint + withDraw);
-                        accountUsers.get(i).setBalanceAmount(withDraw);
-                        checkOut = false;
+                    if (input1 == accountUsers.get(i).getId()) {
+                        System.out.println(Constant.enterWithDraw);
+                        double withDrawMoney = scanner.nextDouble();
+                        if(withDrawMoney <= accountUsers.get(i).getBalanceAmount()) {
+                            double withDraw = accountUsers.get(i).getBalanceAmount() - withDrawMoney;
+                            System.out.println(Constant.withDrawPrint + withDraw);
+                            accountUsers.get(i).setBalanceAmount(withDraw);
+                            checkOut = false;
 
-                        break;
-                    } else {
-                        System.out.println(Constant.conditionWithDraw);
+                            break;
+                        } else {
+                            System.out.println(Constant.conditionWithDraw);
+                        }
                     }
+
+
+                } if (!checkOut) {
+                    checkWithDraw = false;
+                } if(!checkLoop) {
+                    checkWithDraw = false;
                 }
-
-
-            } if (!checkOut) {
-                checkWithDraw = false;
-            } if(!checkLoop) {
-                checkWithDraw = false;
-            }
-            if(!checkLoop) {
-                System.out.println(Constant.noList);
+                if(!checkLoop) {
+                    System.out.println(Constant.noList);
+                }
             }
         }
 
