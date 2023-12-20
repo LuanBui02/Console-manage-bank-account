@@ -105,73 +105,81 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void updateAccount() {
-        System.out.print(Constant.choseId);
-        int inputId = scanner.nextInt();
-        boolean checkIndex = false;
-        for (int i = 0; i < accountUsers.size(); i++) {
-            if (inputId == accountUsers.get(i).getId()) {
-                System.out.print(Constant.enterAccountNumber);
+        if (accountUsers.isEmpty()) {
+            System.out.println(Constant.emptyList);
+        } else {
+            System.out.print(Constant.choseId);
+            int inputId = scanner.nextInt();
+            boolean checkIndex = false;
+            for (int i = 0; i < accountUsers.size(); i++) {
+                if (inputId == accountUsers.get(i).getId()) {
+                    System.out.print(Constant.enterAccountNumber);
 
-                String accountNumber = scanner.next();
+                    String accountNumber = scanner.next();
 
-                accountUsers.get(i).setAccountNumber(accountNumber);
-                // Nhap UserID
-                System.out.print(Constant.enterUserId);
+                    accountUsers.get(i).setAccountNumber(accountNumber);
+                    // Nhap UserID
+                    System.out.print(Constant.enterUserId);
 
-                String userId = scanner.next();
+                    String userId = scanner.next();
 
-                accountUsers.get(i).setUserId(userId);
-                //Nhap password
-                scanner.nextLine();
-                System.out.print(Constant.enterPassword);
-                String password = "";
+                    accountUsers.get(i).setUserId(userId);
+                    //Nhap password
+                    scanner.nextLine();
+                    System.out.print(Constant.enterPassword);
+                    String password = "";
 
-                boolean checkPassword = true;
+                    boolean checkPassword = true;
 
-                while (checkPassword) {
-                    password = scanner.nextLine();
-                    boolean checkCh = false;
-                    if(password.trim().isEmpty()) {
-                        System.out.println(Constant.enterPasswordAgain);
-                        checkCh = true;
-
-                    }
-                    for(char ch: password.toCharArray()) {
-                        if(ch == ' ') {
+                    while (checkPassword) {
+                        password = scanner.nextLine();
+                        boolean checkCh = false;
+                        if(password.trim().isEmpty()) {
                             System.out.println(Constant.enterPasswordAgain);
                             checkCh = true;
+
                         }
-                    }
-                    if (!checkCh) {
-                        checkPassword = false;
-                    }
+                        for(char ch: password.toCharArray()) {
+                            if(ch == ' ') {
+                                System.out.println(Constant.enterPasswordAgain);
+                                checkCh = true;
+                            }
+                        }
+                        if (!checkCh) {
+                            checkPassword = false;
+                        }
 
 
+                    }
+                    accountUsers.get(i).setPassword(password);
+                    //Nhap balance amount
+                    System.out.print(Constant.enterBalance);
+                    double balanceAmount;
+
+                    while(!scanner.hasNextDouble()) {
+                        System.out.println(Constant.getEnterBalance);
+                        scanner.next();
+                    } balanceAmount = scanner.nextDouble();
+                    accountUsers.get(i).setBalanceAmount(balanceAmount);
+                    users.add(accountUsers.get(i));
+                    System.out.println(users);
+                    checkIndex = true;
+                    break;
                 }
-                accountUsers.get(i).setPassword(password);
-                //Nhap balance amount
-                System.out.print(Constant.enterBalance);
-                double balanceAmount;
-
-                while(!scanner.hasNextDouble()) {
-                    System.out.println(Constant.getEnterBalance);
-                    scanner.next();
-                } balanceAmount = scanner.nextDouble();
-                accountUsers.get(i).setBalanceAmount(balanceAmount);
-                System.out.println(accountUsers);
-                checkIndex = true;
-                break;
             }
-        }
-        if (!checkIndex) {
-            System.out.println(Constant.noList);
+            if (!checkIndex) {
+                System.out.println(Constant.noList);
+            }
         }
 
     }
 
     @Override
     public void removeAccount() {
-        System.out.print(Constant.choseId);
+       if (accountUsers.isEmpty()) {
+            System.out.println(Constant.emptyList);
+        } else {
+            System.out.print(Constant.choseId);
 
             int inputRemove = scanner.nextInt();
 
@@ -184,10 +192,10 @@ public class AccountServiceImpl implements AccountService {
                     break;
                 }
 
-                } if(!checkLoop) {
-                    System.out.println(Constant.noList);
-                }
-
+            } if(!checkLoop) {
+                System.out.println(Constant.noList);
+            }
+        }
         }
 
 
