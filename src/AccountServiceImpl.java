@@ -230,7 +230,7 @@ public class AccountServiceImpl implements AccountService {
         }
 
     @Override
-        public void withdrawMoney() {
+    public void withdrawMoney() {
         if(accountUsers.isEmpty()) {
             System.out.println(Constant.emptyList);
         } else {
@@ -238,40 +238,46 @@ public class AccountServiceImpl implements AccountService {
             int input1 = scanner.nextInt();
             boolean checkWithDraw = true;
             while (checkWithDraw) {
-
+                boolean checkLoop = true;
                 boolean checkOut = true;
-                boolean checkLoop = false;
                 for (int i = 0; i < accountUsers.size(); i++) {
-
                     if (input1 == accountUsers.get(i).getId()) {
-                        System.out.println(Constant.enterWithDraw);
-                        double withDrawMoney = scanner.nextDouble();
-                        if(withDrawMoney <= accountUsers.get(i).getBalanceAmount()) {
-                            double withDraw = accountUsers.get(i).getBalanceAmount() - withDrawMoney;
-                            System.out.println(Constant.withDrawPrint + withDraw);
-                            accountUsers.get(i).setBalanceAmount(withDraw);
-                            checkOut = false;
+                        boolean checkWithDraw1 = true;
+                        while (checkWithDraw1) {
+                            System.out.println(Constant.enterWithDraw);
+                            double withDrawMoney = scanner.nextDouble();
+                            boolean checkInLoop = false;
+                            for (int j = 0; j < accountUsers.size(); j++) {
+                                if(withDrawMoney <= accountUsers.get(j).getBalanceAmount()) {
+                                    double withDraw = accountUsers.get(j).getBalanceAmount() - withDrawMoney;
+                                    System.out.println(Constant.withDrawPrint + withDraw);
+                                    accountUsers.get(j).setBalanceAmount(withDraw);
+                                    checkLoop = false;
+                                    checkInLoop = false;
 
-                            break;
-                        } else {
-                            System.out.println(Constant.conditionWithDraw);
+                                    break;
+                                } else {
+                                    System.out.println(Constant.conditionWithDraw);
+                                    checkInLoop = true;
+                                    checkLoop = false;
+                                }
+
+                            } if (!checkInLoop) {
+                                checkWithDraw1 = false;
+                            }
                         }
                     }
-
-
+                }
+                if(checkLoop) {
+                    System.out.println(Constant.noList);
                 } if (!checkOut) {
                     checkWithDraw = false;
-                } if(!checkLoop) {
+                }  if(!checkLoop) {
                     checkWithDraw = false;
-                }
-                if(!checkLoop) {
-                    System.out.println(Constant.noList);
                 }
             }
         }
-
-
-    }
+        }
 
 
     @Override
